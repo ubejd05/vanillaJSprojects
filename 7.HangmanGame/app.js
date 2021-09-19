@@ -117,7 +117,7 @@ function showNotification() {
   }, 2000);
 }
 
-// // Fetch 10 random words //NOT WORKING!!!
+// // Fetch 10 random words //NOT WORKING!!! Provo me bo krejt codin async (async()=>{})()
 // async function getRandomWords() {
 //   const res = await fetch('https://random-word-api.herokuapp.com/word?number=10&swear=0');
 //   const words = await res.json();
