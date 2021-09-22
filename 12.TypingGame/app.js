@@ -1,6 +1,7 @@
 const word = document.getElementById('word');
 const text = document.getElementById('text');
 const scoreEl = document.getElementById('score');
+const highScoreEl = document.getElementById('high-score');
 const timeEl = document.getElementById('time');
 const endgameEl = document.getElementById('end-game-container');
 const settingsBtn = document.getElementById('settings-btn');
@@ -35,8 +36,10 @@ const words = [
 
 let randomWord;
 let score = 0;
+let highScore = localStorage.getItem('highScore') !== null ? localStorage.getItem('highScore') : 0;
 let time = 10;
 let difficulty = localStorage.getItem('difficulty') !== null ? localStorage.getItem('difficulty') : 'medium';
+let newHighScore = false;
 
 // Set difficulty select value
 difficultySelect.value = difficulty;
@@ -45,6 +48,8 @@ addWordToDOM();
 
 // Focus on text input on start
 text.focus();
+
+highScoreEl.innerHTML = highScore;
 
 // Start counting down
 const timeInterval = setInterval(updateTime, 1000);
@@ -103,6 +108,12 @@ function addWordToDOM() {
 function updateScore() {
   score++
   scoreEl.innerHTML = score;
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', highScore)
+    newHighScore = true;
+  }
+  highScoreEl.innerHTML = localStorage.getItem('highScore');
 }
 
 // Update time
@@ -122,6 +133,7 @@ function gameOver() {
   endgameEl.innerHTML = `
     <h1>Time ran out</h1>
     <p>Your final score is ${score}</p>
+    ${newHighScore === true ? '<h2 id="newHighScore">New High Score!!!</h2>'  : ''}
     <button onclick="location.reload()">Play Again?</button>
   `;
 
