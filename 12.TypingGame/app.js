@@ -84,6 +84,7 @@ settingsBtn.addEventListener('click', (e) => {
 settingsForm.addEventListener('change', (e) => {
   difficulty = e.target.value;
   localStorage.setItem('difficulty', difficulty)
+  location.reload();
 })
 
 
