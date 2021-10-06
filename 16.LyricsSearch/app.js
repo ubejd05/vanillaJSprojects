@@ -61,7 +61,7 @@ async function getMoreSongs(url) {
   let x = `https://${url.slice(7)}`;
   console.log(`${x}`);
   const res = await fetch(x, {headers:{
-    'Access-Control-Allow-Origin': `https://api.deezer.com/search?limit=15&q=one&index=15`
+    'Access-Control-Allow-Origin': '*',
   }});
   const data = await res.json();
   console.log(data);
@@ -85,3 +85,46 @@ form.addEventListener('submit', e => {
 
 
 // http://api.deezer.com/search?limit=15&q=one&index=15
+
+
+
+
+// function digital_root(n) {
+//   let total = 0;
+//   Array.from(String(n)).forEach((item) => total += parseInt(item))
+//   if(String(total).length > 1) {
+//     digital_root(total)
+//   } else {
+//     return total;
+//   }
+// }
+
+
+
+
+// function createPhoneNumber(numbers){
+//   let a = numbers.slice(0, 3);
+//   let b = numbers.slice(3, 6);
+//   let c = numbers.slice(6);
+  
+//   return `(${a}) ${b}-${c}`;
+// }
+
+
+
+// function duplicateEncode(word){
+//   const wordArr = Array.from(word);
+  
+//   wordArr.forEach((item, index) => {
+//     if(wordArr.indexOf(item, index+1) > -1 ) {
+//       wordArr.splice(index, ')')
+//     } else {
+//       wordArr.splice(index, '(')
+//     }
+//   })
+  
+//   return wordArr.join('');
+// }
+
+
+
