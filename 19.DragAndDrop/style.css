@@ -48,7 +48,7 @@ body {
   width: 60px;
 }
 
-.draggable-list li.over .draggable {
+.draggable-list .over{
   background-color: #eaeaea;
 }
 
