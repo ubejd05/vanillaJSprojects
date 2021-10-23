@@ -12,7 +12,7 @@ const apiURL = 'https://api.lyrics.ovh';
 async function searchSongs(term) {
   const res = await fetch(`${apiURL}/suggest/${term}`)
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   
   showData(data)
 }
@@ -58,15 +58,27 @@ function showData(data) {
 }
 
 async function getMoreSongs(url) {
-  let x = `https://${url.slice(7)}`;
-  console.log(`${x}`);
-  const res = await fetch(x, {headers:{
-    'Access-Control-Allow-Origin': '*',
-  }});
+  const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
   
-  // showData(data)
+  showData(data)
+}
+
+// Get lyrics for song
+async function getLyrics(artist, songTitle) {
+  const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+  const data = await res.json();
+  
+  const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>')
+
+  result.innerHTML = `
+    <h2><strong>${artist}</strong> - ${songTitle}</h2>
+    <br><br>
+    <span>${lyrics}</span>;
+  `;
+
+  more.innerHTML = '';
 }
 
 
@@ -83,48 +95,19 @@ form.addEventListener('submit', e => {
   }
 })
 
+// Get lyrics button click
+result.addEventListener('click', (e) => {
+  const clickedEl = e.target;
+
+  if(clickedEl.tagName === 'BUTTON') {
+    const artist = clickedEl.getAttribute('data-artist')
+    const songTitle = clickedEl.getAttribute('data-songtitle')
+
+    getLyrics(artist, songTitle)
+  }
+});
+
 
 // http://api.deezer.com/search?limit=15&q=one&index=15
-
-
-
-
-// function digital_root(n) {
-//   let total = 0;
-//   Array.from(String(n)).forEach((item) => total += parseInt(item))
-//   if(String(total).length > 1) {
-//     digital_root(total)
-//   } else {
-//     return total;
-//   }
-// }
-
-
-
-
-// function createPhoneNumber(numbers){
-//   let a = numbers.slice(0, 3);
-//   let b = numbers.slice(3, 6);
-//   let c = numbers.slice(6);
-  
-//   return `(${a}) ${b}-${c}`;
-// }
-
-
-
-// function duplicateEncode(word){
-//   const wordArr = Array.from(word);
-  
-//   wordArr.forEach((item, index) => {
-//     if(wordArr.indexOf(item, index+1) > -1 ) {
-//       wordArr.splice(index, ')')
-//     } else {
-//       wordArr.splice(index, '(')
-//     }
-//   })
-  
-//   return wordArr.join('');
-// }
-
 
 
